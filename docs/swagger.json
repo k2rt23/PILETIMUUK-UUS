@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.2",
     "info": {
-      "title": "Piletimuuk-UUS API",
+      "title": "piletimuuk",
       "version": "1.0.0",
       "description": "API piletite müümiseks ja haldamiseks"
     },
