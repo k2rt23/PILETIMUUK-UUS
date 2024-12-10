@@ -10,6 +10,9 @@ const swaggerUI = require('swagger-ui-express');
 const yamljs = require('yamljs');
 const swaggerDoc = yamljs.load('./docs/swagger.yaml');
 
+const {sync} = require('./db');
+
+
 const tickets = [
     { 
         TicketID: 1,
@@ -67,6 +70,12 @@ app.use(cors());
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 app.use(express.json());
 
+app.get("/", req, res) => {
+    res.send(`Server running. Documentation at <a href="http://${host}:${port}/docs">/docs</a>`)    
+})
+
+require("./routes/ticketRoutes")(app);
+
 app.get("/tickets", (req, res) => { res.status(200).send(tickets) });
 
 app.get("/tickets/:id", (req, res) => {
@@ -114,7 +123,11 @@ app.delete('/tickets/:id', (req, res) => {
     res.status(204).send();
 });
 
-app.listen(port, () => { console.log(`API available at: http://localhost:${port}`); });
+app.listen(port, async()) => {
+    if (process.env.SYNC === 'true') {
+        await sync();
+    }
+    console.log(`API available at: http://${host}:${port}`);
 
 function getBaseURL(req) {
     return `${req.protocol}://${req.get('host')}`;
