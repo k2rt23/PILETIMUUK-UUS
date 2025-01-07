@@ -1,0 +1,51 @@
+# Ignore Visual Studio tööriistade loodud vahemälu ja ajutised failid
+.vs/
+*.vsidx
+
+# Ignoreeri Visual Studio Code'i seotud faile
+.vscode/
+
+# Ignoreeri Node.js moodulite kausta (kui kasutate Node.js-i)
+node_modules/
+
+# Ignoreeri kõiki ajutisi või kompileeritud faile
+*.log
+*.tmp
+*.obj
+*.dll
+*.exe
+*.pdb
+*.idb
+*.class
+*.so
+*.dylib
+*.swp
+
+# Ignoreeri projektispetsiifilisi ajutisi ja kompileerimisfaile
+bin/
+obj/
+build/
+dist/
+tmp/
+out/
+
+# Ignoreeri MacOS ja Windowsi süsteemispetsiifilisi faile
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Ignoreeri npm ja Yarn lokaalseid faile
+package-lock.json
+yarn.lock
+
+# Ignoreeri Git spetsiifilisi ajutisi faile
+*.orig
+
+# Ignoreeri kõik privaatvõtmed või turvalisusega seotud failid
+*.key
+*.pem
+*.crt
+
+# Kui kasutate frontend raamistikke (nt Vue või React), lisage need
+coverage/
+*.cache
