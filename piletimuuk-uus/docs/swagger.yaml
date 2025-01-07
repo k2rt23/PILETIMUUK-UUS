@@ -1,0 +1,200 @@
+openapi: 3.0.2
+info:
+  title: Piletimuuk-UUS API
+  version: 1.0.0
+  description: API piletite müümiseks ja haldamiseks
+servers:
+  - url: http://localhost:8080
+    description: Arendusserver
+paths:
+  /users:
+    get:
+      summary: Kasutajate nimekiri
+      tags:
+        - Users
+      responses:
+        '200':
+          description: Tagastab kasutajate nimekirja
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: Loo uus kasutaja
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            example:
+              first_name: "Mati"
+              last_name: "Kask"
+              email: "mati.kask@example.com"
+              role: "user"
+      responses:
+        '201':
+          description: Kasutaja edukalt loodud
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /events:
+    get:
+      summary: Sündmuste nimekiri
+      tags:
+        - Events
+      responses:
+        '200':
+          description: Tagastab sündmuste nimekirja
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+    post:
+      summary: Loo uus sündmus
+      tags:
+        - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+            example:
+              user_id: 1
+              title: "Kontsert"
+              location: "Tallinn"
+              event_date: "2024-06-15"
+              start_time: "18:00"
+              end_time: "22:00"
+              max_attendees: 500
+              status: "draft"
+      responses:
+        '201':
+          description: Sündmus edukalt loodud
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+  /tickets:
+    get:
+      summary: Piletite nimekiri
+      tags:
+        - Tickets
+      responses:
+        '200':
+          description: Tagastab piletite nimekirja
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ticket'
+    post:
+      summary: Osta uus pilet
+      tags:
+        - Tickets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ticket'
+            example:
+              ticket_type_id: 1
+              user_id: 1
+              status: "purchased"
+      responses:
+        '201':
+          description: Pilet edukalt ostetud
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        first_name:
+          type: string
+          example: "Mati"
+        last_name:
+          type: string
+          example: "Kask"
+        email:
+          type: string
+          example: "mati.kask@example.com"
+        role:
+          type: string
+          enum: ["admin", "organizer", "user"]
+          example: "user"
+        created_at:
+          type: string
+          format: date-time
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Kontsert"
+        location:
+          type: string
+          example: "Tallinn"
+        event_date:
+          type: string
+          format: date
+          example: "2024-06-15"
+        start_time:
+          type: string
+          format: time
+          example: "18:00"
+        end_time:
+          type: string
+          format: time
+          example: "22:00"
+        max_attendees:
+          type: integer
+          example: 500
+        status:
+          type: string
+          enum: ["draft", "published", "cancelled"]
+          example: "draft"
+    Ticket:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        ticket_type_id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 1
+        status:
+          type: string
+          example: "purchased"
+        purchase_date:
+          type: string
+          format: date-time
+          example: "2023-11-15T10:00:00Z"
+        created_at:
+          type: string
+          format: date-time

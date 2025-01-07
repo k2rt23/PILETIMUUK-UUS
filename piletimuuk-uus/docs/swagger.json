@@ -1,0 +1,184 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+      "title": "piletimuuk",
+      "version": "1.0.0",
+      "description": "API piletite müümiseks ja haldamiseks"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:8080",
+        "description": "Arendusserver"
+      }
+    ],
+    "paths": {
+      "/users": {
+        "get": {
+          "summary": "Kasutajate nimekiri",
+          "tags": ["Users"],
+          "responses": {
+            "200": {
+              "description": "Kasutajate nimekiri",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": { "$ref": "#/components/schemas/User" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Uue kasutaja loomine",
+          "tags": ["Users"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Kasutaja loodud",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/User" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/events": {
+        "get": {
+          "summary": "Sündmuste nimekiri",
+          "tags": ["Events"],
+          "responses": {
+            "200": {
+              "description": "Sündmuste nimekiri",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": { "$ref": "#/components/schemas/Event" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Uue sündmuse loomine",
+          "tags": ["Events"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Event" }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Sündmus loodud",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Event" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/tickets": {
+        "get": {
+          "summary": "Piletite nimekiri",
+          "tags": ["Tickets"],
+          "responses": {
+            "200": {
+              "description": "Piletite nimekiri",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": { "$ref": "#/components/schemas/Ticket" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Uue pileti ostmine",
+          "tags": ["Tickets"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Ticket" }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Pilet ostetud",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Ticket" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "User": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "integer", "example": 1 },
+            "first_name": { "type": "string", "example": "Mati" },
+            "last_name": { "type": "string", "example": "Kask" },
+            "email": { "type": "string", "example": "mati.kask@example.com" },
+            "role": { "type": "string", "example": "user" },
+            "created_at": { "type": "string", "format": "date-time" }
+          },
+          "required": ["first_name", "last_name", "email", "role"]
+        },
+        "Event": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "integer", "example": 1 },
+            "user_id": { "type": "integer", "example": 1 },
+            "title": { "type": "string", "example": "Kontsert" },
+            "location": { "type": "string", "example": "Tallinn" },
+            "event_date": { "type": "string", "format": "date", "example": "2024-06-15" },
+            "start_time": { "type": "string", "format": "time", "example": "18:00" },
+            "end_time": { "type": "string", "format": "time", "example": "22:00" },
+            "max_attendees": { "type": "integer", "example": 500 },
+            "status": { "type": "string", "example": "active" },
+            "created_at": { "type": "string", "format": "date-time" }
+          },
+          "required": ["user_id", "title", "location", "event_date", "start_time", "end_time", "max_attendees", "status"]
+        },
+        "Ticket": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "integer", "example": 1 },
+            "ticket_type_id": { "type": "integer", "example": 1 },
+            "user_id": { "type": "integer", "example": 1 },
+            "status": { "type": "string", "example": "purchased" },
+            "purchase_date": { "type": "string", "format": "date-time" },
+            "created_at": { "type": "string", "format": "date-time" }
+          },
+          "required": ["ticket_type_id", "user_id", "status"]
+        }
+      }
+    }
+  }
+  

@@ -1,0 +1,20 @@
+# Ignore Visual Studio ja VS Code failid
+.vs/
+.vscode/
+
+# Ignore IntelliJ/IDEA failid
+.idea/
+
+# Ignore Node.js sõltuvused
+node_modules/
+
+# Ignore keskkonnafailid
+.env
+
+# Ignore logi- ja süsteemifailid
+*.log
+.DS_Store
+Thumbs.db
+
+# Ignore mittevajalikud test- või vahefailid
+studydata.txt
